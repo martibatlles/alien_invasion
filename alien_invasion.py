@@ -7,7 +7,7 @@ class AlienInvasion:
     def __init__(self):
         """Inicialitza el joc i crea recursos"""
         pygame.init()
-        self.screen = pygame.display.set_mode((1366, 768))
+        self.screen = pygame.display.set_mode((1000, 666))
         pygame.display.set_caption("Alien Invasion")
 
 
