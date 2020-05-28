@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 
 class AlienInvasion:
@@ -10,9 +11,10 @@ class AlienInvasion:
         """Inicialitza el joc i crea recursos"""
         pygame.init()
         self.settings = Settings()
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode(
+                (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
-        
+        self.ship = Ship(self)
 
     def run_game(self):
         """Fa fincionar el loop principal pel joc"""
@@ -24,6 +26,9 @@ class AlienInvasion:
 
             # Redibuixa la pantalla durant el loop
             self.screen.fill(self.settings.bg_color)
+            
+            # Dibuixa la nau espacial a la pantalla
+            self.ship.blitme()
 
             # Mostra la finasta dibuixada més recent.
             pygame.display.flip()
