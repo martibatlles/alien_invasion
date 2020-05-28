@@ -20,6 +20,20 @@ class AlienInvasion:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit
+               
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        # Mou la nau cap a la dreta
+                        self.ship.moving_right = True
+                    elif event.key == pygame.K_LEFT:
+                        # Mou la nau cap a l'esquerra
+                        self.ship.moving_left = True
+
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moving_right = False
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moving_left = False
 
 
     def _update_screen(self):
@@ -30,7 +44,7 @@ class AlienInvasion:
         # Dibuixa la nau espacial a la pantalla
         self.ship.blitme()
  
-        # Mostra la finestra dibuixada més recent.
+        # Mostra la finestra dibuixada mes recent.
         pygame.display.flip()
 
 
@@ -39,6 +53,7 @@ class AlienInvasion:
         """Fa funcionar el loop principal pel joc"""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
 
