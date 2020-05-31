@@ -39,7 +39,11 @@ class AlienInvasion:
 
         elif event.key == pygame.K_q:
             sys.exit()
-            
+
+        elif event.key == pygame.K_F11:
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
