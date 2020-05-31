@@ -11,6 +11,7 @@ class AlienInvasion:
         """Inicialitza el joc i crea recursos"""
         pygame.init()
         self.settings = Settings()
+        self.full_screen = False
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
@@ -41,7 +42,11 @@ class AlienInvasion:
             sys.exit()
 
         elif event.key == pygame.K_F11:
-            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            if not self.full_screen:
+                self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            else:
+                self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+            self.full_screen = not self.full_screen
 
 
     def _check_keyup_events(self, event):
