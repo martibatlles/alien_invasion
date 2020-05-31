@@ -2,7 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
-
+from bullet import Bullet
 
 class AlienInvasion:
     """Classe per a controlar el joc"""
@@ -15,6 +15,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group() 
 
     
     def _check_events(self):
@@ -48,6 +49,16 @@ class AlienInvasion:
                 self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
             self.full_screen = not self.full_screen
 
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+
+    def _fire_bullet(self):
+        """Crea una nova bala i l'afegeix al grup de bales"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
+
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -67,6 +78,9 @@ class AlienInvasion:
         # Dibuixa la nau espacial a la pantalla
         self.ship.blitme()
  
+        # Dibuixa la bala
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         # Mostra la finestra dibuixada mes recent.
         pygame.display.flip()
 
@@ -77,8 +91,10 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
-
+            
+            
 
 
 def main():
