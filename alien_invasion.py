@@ -68,8 +68,6 @@ class AlienInvasion:
             self.ship.moving_left = False
 
 
-
-
     def _update_screen(self):
         """Actualitza les imatges de la pantalla i les mostra"""
         # Redibuixa la pantalla durant el loop
@@ -94,7 +92,10 @@ class AlienInvasion:
             self.bullets.update()
             self._update_screen()
             
-            
+            # Elimina les bales que sobrepassen l'altura màximaç
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
 
 
 def main():
