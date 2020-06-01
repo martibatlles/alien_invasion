@@ -55,8 +55,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Crea una nova bala i l'afegeix al grup de bales"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 
 
@@ -83,13 +84,19 @@ class AlienInvasion:
         pygame.display.flip()
 
 
+    def _update_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
 
     def run_game(self):
         """Fa funcionar el loop principal pel joc"""
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
             
             # Elimina les bales que sobrepassen l'altura màximaç
